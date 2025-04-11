@@ -25,3 +25,14 @@ with st.form("dlp_form"):
             # Log the blocked email
             with open("dlp_log.txt", "a") as log_file:
                 log_file.write(f"Blocked Email to {to_email} | Violations: {violations}\n")
+
+# Optional: create a sidebar or a section
+st.sidebar.title("Admin Tools")
+if st.sidebar.button("Show DLP Logs"):
+    try:
+        with open("dlp_log.txt", "r") as log_file:
+            log_content = log_file.read()
+        st.subheader("📜 DLP Violation Logs")
+        st.text_area("Log Output", log_content, height=300)
+    except FileNotFoundError:
+        st.warning("Log file not found. No violations have been recorded yet.")
