@@ -22,3 +22,9 @@ def apply_policy(to_email, content):
     if violations and is_external_email(to_email):
         return False, violations
     return True, violations
+
+def log_violation(email, violations):
+    with open("dlp_log.txt", "a") as log_file:
+        log_file.write(f"Email to: {email}\n")
+        log_file.write(f"Violation(s): {', '.join(violations)}\n")
+        log_file.write("------\n")
